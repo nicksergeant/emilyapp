@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block body-class %}login{% endblock %}
+{% block content %}
+
+    <div class="row">
+        <div class="span8 offset2 invite-only">
+            {% include "invite-well.html" %}
+        </div>
+        <div class="span8 offset2">
+            {% if form.errors %}
+                <div class="alert alert-error">
+                    <strong>Invalid login:</strong> Your username and password didn't match. Please try again.
+                </div>
+            {% endif %}
+
+            <form class="form-horizontal" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+                <fieldset>
+                    <legend>Log in to Emily App</legend>
+                    <div class="control-group">
+                        <label class="control-label">Username: </label>
+                        <div class="controls">
+                            {{ form.username }}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Password: </label>
+                        <div class="controls">
+                            {{ form.password }}
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        {% csrf_token %}
+                        <input class="btn btn-primary" type="submit" value="Log in" />
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

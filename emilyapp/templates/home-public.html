@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block body-class %}home-public{% endblock %}
+{% block page-title %}{{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="span8 offset2 top">
+            <h2><span>Emily App</span> is a simple web and mobile app for tracking breastfeeding, pumping, and diaper changes.</h2>
+            <a href="/login/" class="btn btn-large btn-primary">Log in &raquo;</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span4 offset2 module">
+            <h2>Mobile access</h2>
+            <p>Emily App is completely optimized for all mobile phones and tablets. Whether you've got an iPhone, Android, Blackberry, or iPad, the app will look and work great on your device.</p>
+        </div>
+        <div class="span4 module">
+            <h2>Quick controls</h2>
+            <p>Instant buttons for "Feed Left", "Feed Right", "Pee", "Poop", "Pump Left", and "Pump Right". Because when you're up at 4am, the last thing you should need is a pen and paper.</p>
+        </div>
+    </div>
+    <div class="bottom row">
+        <div class="span4 offset2 module">
+            <h2>Multiple children</h2>
+            <p>Have a few kids? How about twins? We've got you covered, with a quick way to switch between children. Even if your children are years apart, Emily App will save you time.</p>
+        </div>
+        <div class="span4 module">
+            <h2>You tell us!</h2>
+            <p>The developer of Emily App has a newborn, too. So we're constantly building new features that matter for real parents. Need a feature? <a href="mailto:nick@emilyapp.net">Email Nick</a>!</p>
+        </div>
+    </div>
+    <div class="row thumbs">
+        <div class="span4 offset2">
+            <img src="{{ STATIC_URL }}images/thumb-1.png" alt="" />
+        </div>
+        <div class="span4">
+            <img src="{{ STATIC_URL }}images/thumb-2.png" alt="" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="span8 offset2">
+            {% include "invite-well.html" %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>{% block page-title %}Emily App{% endblock %}{% block page-title-description %} - Track baby feedings, diaper changes, and pumping sessions.{% endblock %}</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="Emily App is a simple web and mobile app for tracking breastfeeding, pumping, and diaper changes." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="icon" href="{{ STATIC_URL }}images/favicon.ico" />
+    <link rel="apple-touch-icon" href="{{ STATIC_URL }}images/iphone-app-icon.png"/>
+    {% if debug %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css" />
+    <link rel="stylesheet/less" href="{{ STATIC_URL }}css/style.less" />
+
+    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/a_underscore.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/b_jquery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/c_json2.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/d_backbone.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.timeago.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.ui.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/src/application.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}/js/src/modules/events.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}css/less.js"></script>
+    {% else %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}cache/emilyapp.css" />
+    <script type="text/javascript" src="{{ STATIC_URL }}cache/emilyapp.js"></script>
+    {% endif %}{% block javascript %}{% endblock %}
+    <!--[if IE]>
+        <style type="text/css">
+            .group {
+                display: block;
+                zoom: 1;
+            }
+        </style>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+<body class="{% block body-class %}base{% endblock %}">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a href="/?child={{ kid.id }}" class="brand">E</a>
+                <ul class="nav">
+                    {% if not request.user.is_authenticated %}
+                        <li {% if request.path == '/login/' %}class="active"{% endif %}>
+                            <a href="/login/">Log in</a>
+                        </li>
+                    {% else %}
+                        <li {% if request.path == '/account/' %}class="active"{% endif %}>
+                        </li>
+                        <li>
+                            <a href="/logout/">Log out</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                {% if kids.count > 1 %}
+                    <ul class="nav children">
+                        <li>
+                            <a class="kids-dropdown" href="/?child={{ kid.id }}">
+                                {{ kid.name }}
+                                {% if kids.count > 1 %}
+                                    <i class="icon-chevron-down icon-white"></i>
+                                {% else %}
+                                    <i class="icon-heart icon-white"></i>
+                                {% endif %}
+                            </a>
+                            <ul>
+                                {% for k in kids %}
+                                    {% if k != kid %}
+                                        <li>
+                                            <a href="/?child={{ k.id }}">{{ k.name }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="container main-container">
+        {% block content %}{% endblock %}
+    </div>
+    <script type="text/javascript">
+        var _gauges = _gauges || [];
+        (function() {
+            var t   = document.createElement('script');
+            t.type  = 'text/javascript';
+            t.async = true;
+            t.id    = 'gauges-tracker';
+            t.setAttribute('data-site-id', '4f514feb613f5d021500001c');
+            t.src = '//secure.gaug.es/track.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(t, s);
+        })();
+    </script>
+</body>
+</html>
